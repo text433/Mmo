@@ -26,66 +26,65 @@ export const WORLD_HEIGHT = 5000;
 export const ZONES: Zone[] = [
   {
     id: 'sanctuary',
-    name: 'Sanctuary of Light',
+    name: 'Ashen Sanctuary',
     minLevel: 1,
     recommendedLevel: 'Lv. 1+',
     bounds: { x: 2000, y: 2000, width: 1000, height: 1000 },
-    color: '#38bdf8',
-    bgColor: '#0f172a',
+    color: '#b9823f',
+    bgColor: '#17110b',
     dangerLevel: 'Safe',
-    description: 'Safe haven with healing fountain, training dummies, and travelers.',
+    description: 'A dying refuge lit by braziers, old bronze shrines and the last guarded fountain.',
   },
   {
     id: 'forest',
-    name: 'Whispering Woods',
+    name: 'Blackroot Wilds',
     minLevel: 1,
     recommendedLevel: 'Lv. 1-8',
     bounds: { x: 200, y: 200, width: 2200, height: 1800 },
-    color: '#4ade80',
-    bgColor: '#064e3b',
+    color: '#69783d',
+    bgColor: '#172015',
     dangerLevel: 'Low',
-    description: 'Lush woodland populated by Slimes, Forest Wolves, and Goblins.',
+    description: 'Twisted woodland drowned in moss, fog and corrupted beasts.',
     bossName: 'Elder Mossbeast',
   },
   {
     id: 'ruins',
-    name: 'Forgotten Crypts',
+    name: 'Graveborn Crypts',
     minLevel: 8,
     recommendedLevel: 'Lv. 8-16',
     bounds: { x: 2600, y: 200, width: 2200, height: 1800 },
-    color: '#c084fc',
-    bgColor: '#3b0764',
+    color: '#80658d',
+    bgColor: '#19131d',
     dangerLevel: 'Moderate',
-    description: 'Ancient stony ruins overrun by Skeletal Knights and Dark Necromancers.',
+    description: 'Cold burial halls of cracked stone, dead kings and forbidden sorcery.',
     bossName: 'Lich King Malakar',
   },
   {
     id: 'inferno',
-    name: 'Molten Core',
+    name: 'Cinder Wastes',
     minLevel: 16,
     recommendedLevel: 'Lv. 16-25',
     bounds: { x: 200, y: 3000, width: 2200, height: 1800 },
-    color: '#f97316',
-    bgColor: '#451a03',
+    color: '#a94d25',
+    bgColor: '#24100b',
     dangerLevel: 'Extreme',
-    description: 'Burning volcanic wasteland guarded by Lava Elementals and the World Titan.',
+    description: 'Obsidian fields split by old magma scars and ash storms.',
     bossName: 'Ignis the World Scourge',
   },
   {
     id: 'arena',
-    name: 'Outlaw Colosseum',
+    name: 'Bloodiron Pit',
     minLevel: 10,
     recommendedLevel: 'Lv. 10+ (PvP)',
     bounds: { x: 2600, y: 3000, width: 2200, height: 1800 },
-    color: '#ef4444',
-    bgColor: '#450a0a',
+    color: '#8d302b',
+    bgColor: '#210d0c',
     dangerLevel: 'PvP Arena',
-    description: 'Open PvP combat zone where brave heroes battle for triple bounty rewards.',
+    description: 'A ruined war arena of iron stakes, broken standards and bounty hunters.',
     bossName: 'Warlord Bloodfang',
   },
 ];
 
-// Helper to find zone from coordinates
 export function getZoneAt(x: number, y: number): Zone {
   for (const zone of ZONES) {
     if (
@@ -100,15 +99,12 @@ export function getZoneAt(x: number, y: number): Zone {
   return ZONES[0];
 }
 
-// Generate static decorative obstacles & trees across the world
 export function generateWorldObstacles(): WorldObstacle[] {
   const obstacles: WorldObstacle[] = [];
   let idCounter = 1;
 
-  // Sanctuary decorative pillars and fountain
-  obstacles.push({ id: `obs-${idCounter++}`, x: 2500, y: 2500, radius: 45, type: 'shrine', color: '#38bdf8' }); // Central Fountain
+  obstacles.push({ id: `obs-${idCounter++}`, x: 2500, y: 2500, radius: 45, type: 'shrine', color: '#9b713d' });
 
-  // Torches around sanctuary
   const torchPositions = [
     { x: 2300, y: 2300 }, { x: 2700, y: 2300 },
     { x: 2300, y: 2700 }, { x: 2700, y: 2700 },
@@ -116,10 +112,9 @@ export function generateWorldObstacles(): WorldObstacle[] {
     { x: 2200, y: 2500 }, { x: 2800, y: 2500 },
   ];
   torchPositions.forEach((pos) => {
-    obstacles.push({ id: `obs-${idCounter++}`, x: pos.x, y: pos.y, radius: 14, type: 'torch', color: '#f59e0b' });
+    obstacles.push({ id: `obs-${idCounter++}`, x: pos.x, y: pos.y, radius: 14, type: 'torch', color: '#b65f24' });
   });
 
-  // Procedurally generate trees in forest zone (avoiding exact center of sanctuary)
   for (let i = 0; i < 90; i++) {
     const x = 300 + Math.random() * 2000;
     const y = 300 + Math.random() * 1600;
@@ -129,11 +124,10 @@ export function generateWorldObstacles(): WorldObstacle[] {
       y,
       radius: 26 + Math.random() * 12,
       type: 'tree',
-      color: '#166534',
+      color: i % 4 === 0 ? '#26351f' : '#1d2b1b',
     });
   }
 
-  // Ancient ruins pillars and rocks in crypts zone
   for (let i = 0; i < 70; i++) {
     const x = 2700 + Math.random() * 2000;
     const y = 300 + Math.random() * 1600;
@@ -144,11 +138,10 @@ export function generateWorldObstacles(): WorldObstacle[] {
       y,
       radius: isPillar ? 22 : 18,
       type: isPillar ? 'ruin_pillar' : 'rock',
-      color: isPillar ? '#7e22ce' : '#64748b',
+      color: isPillar ? '#4b3e4e' : '#494746',
     });
   }
 
-  // Obsidian rocks and magma crystals in inferno
   for (let i = 0; i < 65; i++) {
     const x = 300 + Math.random() * 2000;
     const y = 3100 + Math.random() * 1600;
@@ -158,11 +151,10 @@ export function generateWorldObstacles(): WorldObstacle[] {
       y,
       radius: 20 + Math.random() * 14,
       type: Math.random() > 0.5 ? 'crystal' : 'rock',
-      color: '#ea580c',
+      color: Math.random() > 0.55 ? '#9f3f20' : '#38211b',
     });
   }
 
-  // Spikes and arena pillars in PvP zone
   for (let i = 0; i < 50; i++) {
     const x = 2700 + Math.random() * 2000;
     const y = 3100 + Math.random() * 1600;
@@ -172,7 +164,7 @@ export function generateWorldObstacles(): WorldObstacle[] {
       y,
       radius: 20 + Math.random() * 10,
       type: 'ruin_pillar',
-      color: '#991b1b',
+      color: '#5e2925',
     });
   }
 
@@ -180,8 +172,8 @@ export function generateWorldObstacles(): WorldObstacle[] {
 }
 
 export const WORLD_SHRINES: WorldShrine[] = [
-  { id: 'shrine-1', x: 1200, y: 1100, radius: 30, name: 'Shrine of Swiftness', buffType: 'haste', color: '#22d3ee' },
-  { id: 'shrine-2', x: 3700, y: 1100, radius: 30, name: 'Shrine of Dark Might', buffType: 'might', color: '#a855f7' },
-  { id: 'shrine-3', x: 1200, y: 3900, radius: 30, name: 'Shrine of Flame Guard', buffType: 'shield', color: '#f97316' },
-  { id: 'shrine-4', x: 3700, y: 3900, radius: 30, name: 'Shrine of Blood Vitality', buffType: 'regeneration', color: '#ef4444' },
+  { id: 'shrine-1', x: 1200, y: 1100, radius: 30, name: 'Shrine of the Hunt', buffType: 'haste', color: '#9d8b59' },
+  { id: 'shrine-2', x: 3700, y: 1100, radius: 30, name: 'Altar of Dark Might', buffType: 'might', color: '#75566e' },
+  { id: 'shrine-3', x: 1200, y: 3900, radius: 30, name: 'Cinder Ward', buffType: 'shield', color: '#a74f25' },
+  { id: 'shrine-4', x: 3700, y: 3900, radius: 30, name: 'Bloodwell', buffType: 'regeneration', color: '#8f332d' },
 ];
