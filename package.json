@@ -1,16 +1,20 @@
 {
   "name": "darkfall-rpg-io",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
-    "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "clean": "rm -rf dist server.js android",
+    "lint": "tsc --noEmit",
+    "android:add": "cap add android",
+    "android:sync": "cap sync android"
   },
   "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/core": "^7.4.3",
     "@google/genai": "^2.4.0",
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
@@ -23,6 +27,7 @@
     "motion": "^12.23.24"
   },
   "devDependencies": {
+    "@capacitor/cli": "^7.4.3",
     "@types/node": "^22.14.0",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.0",
