@@ -1,0 +1,66 @@
+import { WeatherConfig, WeatherType } from '../types/game';
+
+export const WEATHER_CONFIGS: Record<WeatherType, WeatherConfig> = {
+  sunny: {
+    name: 'Radiant Sunshine',
+    type: 'sunny',
+    icon: 'Sun',
+    description: 'Golden sunlight warms the realm. Champions gain heightened swiftness, precision, and vital regeneration.',
+    color: '#fbbf24',
+    ambientTint: 'rgba(251, 191, 36, 0.05)',
+    effects: {
+      statDescription: '+10% Movement Speed • +5% Crit Rate • +25% HP Regen • +15% Holy/Fire Spell Damage',
+      moveSpeedMultiplier: 1.10,
+      critBonus: 0.05,
+      hpRegenBonus: 1.25,
+      mpRegenBonus: 1.0,
+      frostDamageMultiplier: 1.0,
+      fireHolyDamageMultiplier: 1.15,
+      arcaneLightningDamageMultiplier: 1.0,
+      defenseMultiplier: 1.0,
+      dashCooldownReduction: 0.0,
+    },
+  },
+  rain: {
+    name: 'Thunderstorm',
+    type: 'rain',
+    icon: 'CloudRain',
+    description: 'Heavy precipitation and charged lightning surges empower mystical energies, though unpaved terrain becomes muddy.',
+    color: '#38bdf8',
+    ambientTint: 'rgba(30, 41, 59, 0.18)',
+    effects: {
+      statDescription: '+35% MP Regen • +20% Arcane/Lightning Damage • Thunder Strikes • Muddy Off-Road (-10% Spd)',
+      moveSpeedMultiplier: 0.90,
+      critBonus: 0.0,
+      hpRegenBonus: 1.0,
+      mpRegenBonus: 1.35,
+      frostDamageMultiplier: 1.0,
+      fireHolyDamageMultiplier: 0.90,
+      arcaneLightningDamageMultiplier: 1.20,
+      defenseMultiplier: 1.0,
+      dashCooldownReduction: 0.0,
+    },
+  },
+  snow: {
+    name: 'Frost Blizzard',
+    type: 'snow',
+    icon: 'Snowflake',
+    description: 'Sub-zero glacial gales crystallize the air, fortifying armor defenses, empowering frost arts, and granting swift ice-sliding.',
+    color: '#93c5fd',
+    ambientTint: 'rgba(186, 230, 253, 0.12)',
+    effects: {
+      statDescription: '+15% Armor & Defense • +25% Frost Damage • -0.5s Dash CD (Ice Slide) • Monsters Slowed 8%',
+      moveSpeedMultiplier: 1.0,
+      critBonus: 0.0,
+      hpRegenBonus: 1.0,
+      mpRegenBonus: 1.0,
+      frostDamageMultiplier: 1.25,
+      fireHolyDamageMultiplier: 0.95,
+      arcaneLightningDamageMultiplier: 1.0,
+      defenseMultiplier: 1.15,
+      dashCooldownReduction: 0.5,
+    },
+  },
+};
+
+export const WEATHER_CYCLE_ORDER: WeatherType[] = ['sunny', 'rain', 'snow'];
