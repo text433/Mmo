@@ -1,0 +1,37 @@
+name: Darkfall RPG.io Build
+
+on:
+  push:
+    branches:
+      - rpg-io-development
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: TypeScript check
+        run: npm run lint
+
+      - name: Build HTML5 game
+        run: npm run build
+
+      - name: Upload playable build
+        uses: actions/upload-artifact@v4
+        with:
+          name: darkfall-rpg-io-html5
+          path: dist/
+          if-no-files-found: error
