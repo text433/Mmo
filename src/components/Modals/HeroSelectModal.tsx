@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CharacterClassType } from '../../types/game';
 import { CLASS_DEFINITIONS } from '../../engine/classData';
-import { Swords, Zap, Shield, Target, Play, Sparkles } from 'lucide-react';
+import { Play, Crown, Flame } from 'lucide-react';
 import { sound } from '../../engine/soundEngine';
 
 interface HeroSelectModalProps {
@@ -9,9 +9,8 @@ interface HeroSelectModalProps {
 }
 
 export const HeroSelectModal: React.FC<HeroSelectModalProps> = ({ onStartGame }) => {
-  const [name, setName] = useState<string>('Hero');
+  const [name, setName] = useState('Hero');
   const [selectedClass, setSelectedClass] = useState<CharacterClassType>('warrior');
-
   const classes: CharacterClassType[] = ['warrior', 'mage', 'ranger', 'paladin'];
   const activeDef = CLASS_DEFINITIONS[selectedClass];
 
@@ -21,119 +20,82 @@ export const HeroSelectModal: React.FC<HeroSelectModalProps> = ({ onStartGame })
     onStartGame(name.trim() || 'Hero', selectedClass);
   };
 
+  const iconFor = (c: CharacterClassType) => ({ warrior: '⚔', mage: '✦', ranger: '➶', paladin: '♜' }[c]);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 select-none">
-      <div className="bg-[#121417] border border-white/15 rounded-2xl p-6 sm:p-8 w-full max-w-2xl shadow-2xl flex flex-col gap-6 text-white max-h-[95vh] overflow-y-auto">
-        {/* Title */}
-        <div className="text-center flex flex-col items-center gap-1">
-          <div className="flex items-center gap-2 text-yellow-400 font-mono font-bold text-xs uppercase tracking-widest">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Top-Down HTML5 MMORPG</span>
-            <Sparkles className="w-3.5 h-3.5" />
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            REALM.IO MMORPG
-          </h1>
-          <p className="text-xs text-gray-400 max-w-md">
-            Select your hero archetype, enter your character name, and start your journey in a vast multiplayer sandbox world.
-          </p>
-        </div>
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#050403] text-[#e7d8b1] select-none">
+      <div className="fixed inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(circle at 50% 18%, rgba(125,67,24,.30), transparent 34%), radial-gradient(circle at 20% 80%, rgba(74,22,12,.20), transparent 38%), linear-gradient(180deg,#100b07 0%,#050403 55%,#090604 100%)'
+      }} />
+      <div className="fixed inset-0 opacity-30 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(115deg, transparent 0 48px, rgba(198,139,62,.035) 49px 50px)' }} />
 
-        <form onSubmit={handleStart} className="flex flex-col gap-5">
-          {/* Hero Name Input */}
-          <div className="flex flex-col gap-1.5">
-            <label className="text-[11px] font-mono font-bold text-gray-300 uppercase tracking-wider">
-              Character Identifier
-            </label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter character name..."
-              maxLength={18}
-              required
-              className="bg-black/50 border border-white/15 rounded-lg px-4 py-2.5 text-sm text-white font-mono placeholder-gray-500 focus:outline-none focus:border-white/40"
-            />
-          </div>
+      <div className="relative min-h-screen flex items-center justify-center p-3 sm:p-6">
+        <div className="w-full max-w-4xl border border-[#6f4a25] bg-black/70 shadow-[0_0_70px_rgba(0,0,0,.9),inset_0_0_50px_rgba(128,69,24,.12)]">
+          <div className="h-[3px] bg-gradient-to-r from-transparent via-[#c28a42] to-transparent" />
 
-          {/* 4 Class Options Cards */}
-          <div className="flex flex-col gap-2">
-            <label className="text-[11px] font-mono font-bold text-gray-300 uppercase tracking-wider">
-              Class Specialization
-            </label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {classes.map((c) => {
-                const def = CLASS_DEFINITIONS[c];
-                const isSelected = selectedClass === c;
-
-                return (
-                  <button
-                    key={c}
-                    type="button"
-                    onClick={() => {
-                      setSelectedClass(c);
-                      sound.playLootPickup('magic');
-                    }}
-                    className={`p-3.5 rounded-xl border-2 flex flex-col items-center gap-2 transition-all ${
-                      isSelected
-                        ? 'bg-black/80 border-yellow-400 shadow-xl'
-                        : 'bg-black/40 border-white/10 hover:border-white/20'
-                    }`}
-                  >
-                    <span className="text-2xl">
-                      {c === 'warrior' && '⚔️'}
-                      {c === 'mage' && '🔮'}
-                      {c === 'ranger' && '🏹'}
-                      {c === 'paladin' && '🛡️'}
-                    </span>
-                    <span className="font-bold text-xs text-white">{def.name}</span>
-                    <span className="text-[10px] text-gray-400 font-mono">{def.title}</span>
-                  </button>
-                );
-              })}
+          <div className="px-5 pt-6 pb-4 text-center border-b border-[#4c351f] bg-gradient-to-b from-[#24150b]/80 to-transparent">
+            <div className="flex justify-center items-center gap-3 text-[#b9823d] text-[10px] sm:text-xs tracking-[.35em] uppercase font-bold">
+              <Flame className="w-4 h-4" /> Ancient realms await <Flame className="w-4 h-4" />
             </div>
+            <h1 className="mt-2 font-serif text-4xl sm:text-6xl font-black tracking-[.08em] text-[#e2bf79] drop-shadow-[0_3px_2px_#000]">DARKFALL</h1>
+            <div className="text-[#8f6738] tracking-[.55em] text-[10px] sm:text-xs font-bold">RPG.IO</div>
           </div>
 
-          {/* Selected Class Preview Panel */}
-          <div className="bg-black/50 p-4 rounded-xl border border-white/10 flex flex-col gap-2.5">
-            <div className="flex items-center justify-between">
-              <span className="font-bold text-xs text-gray-200">{activeDef.name} Attributes</span>
-              <span className="text-[11px] font-mono text-gray-400">
-                HP: {activeDef.baseHp} | MP: {activeDef.baseMp}
-              </span>
-            </div>
-            <p className="text-xs text-gray-300 leading-relaxed">{activeDef.description}</p>
-
-            <div className="flex flex-col gap-1.5 pt-2 border-t border-white/10">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-yellow-400">
-                Starting Abilities
-              </span>
+          <form onSubmit={handleStart} className="p-4 sm:p-7 grid lg:grid-cols-[1.2fr_.8fr] gap-5">
+            <section>
+              <div className="text-[10px] tracking-[.28em] uppercase text-[#9d7544] mb-2">Choose your calling</div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {activeDef.abilities.map((ab) => (
-                  <div
-                    key={ab.id}
-                    className="p-2 rounded-lg bg-black/40 border border-white/10 flex items-center gap-2"
-                  >
-                    <span className="text-base">{ab.icon}</span>
-                    <div className="flex flex-col truncate">
-                      <span className="font-bold text-[10px] text-gray-200 truncate">{ab.name}</span>
-                      <span className="text-[9px] font-mono text-gray-400">Key [{ab.key}]</span>
-                    </div>
-                  </div>
-                ))}
+                {classes.map((c) => {
+                  const def = CLASS_DEFINITIONS[c];
+                  const selected = c === selectedClass;
+                  return <button key={c} type="button" onClick={() => { setSelectedClass(c); sound.playLootPickup('magic'); }}
+                    className={`relative min-h-32 p-3 border transition-all ${selected ? 'border-[#d09a4d] bg-[#2b190d] shadow-[inset_0_0_25px_rgba(202,137,55,.18),0_0_16px_rgba(161,99,35,.18)]' : 'border-[#49331e] bg-[#0c0906] hover:border-[#805a30]'}`}>
+                    <div className={`text-4xl font-serif ${selected ? 'text-[#efc36e]' : 'text-[#745638]'}`}>{iconFor(c)}</div>
+                    <div className="mt-3 font-serif font-bold text-sm uppercase tracking-wider text-[#dbc18f]">{def.name}</div>
+                    <div className="text-[9px] mt-1 text-[#7f705e] uppercase tracking-widest">{def.title}</div>
+                    {selected && <div className="absolute left-2 right-2 bottom-0 h-[2px] bg-[#d09a4d]" />}
+                  </button>;
+                })}
               </div>
-            </div>
-          </div>
 
-          {/* Start Button */}
-          <button
-            type="submit"
-            className="w-full py-3.5 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-black font-mono font-bold text-sm uppercase tracking-wider transition-all hover:scale-[1.01] shadow-lg flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <Play className="w-4 h-4 fill-black" />
-            <span>Enter the Game</span>
-          </button>
-        </form>
+              <div className="mt-4 border border-[#49331e] bg-[#090705]/90 p-4">
+                <div className="flex items-center justify-between gap-3 border-b border-[#39291a] pb-3">
+                  <div>
+                    <div className="font-serif text-xl font-bold text-[#dfbd7d]">{activeDef.name}</div>
+                    <div className="text-[10px] uppercase tracking-widest text-[#846a4c]">{activeDef.title}</div>
+                  </div>
+                  <div className="font-mono text-[10px] text-[#aa895d] text-right">VITALITY {activeDef.baseHp}<br/>ARCANA {activeDef.baseMp}</div>
+                </div>
+                <p className="text-xs leading-relaxed text-[#a99b87] mt-3">{activeDef.description}</p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+                  {activeDef.abilities.map(ab => <div key={ab.id} className="border border-[#3c2b1b] bg-black/60 p-2 text-center">
+                    <div className="text-xl text-[#d3a04e]">{ab.icon}</div>
+                    <div className="text-[9px] font-bold text-[#cbb58c] truncate">{ab.name}</div>
+                    <div className="text-[8px] text-[#665b4d]">[{ab.key}]</div>
+                  </div>)}
+                </div>
+              </div>
+            </section>
+
+            <section className="border border-[#49331e] bg-gradient-to-b from-[#171008] to-[#080604] p-5 flex flex-col justify-between shadow-[inset_0_0_35px_rgba(111,67,25,.12)]">
+              <div>
+                <Crown className="w-8 h-8 mx-auto text-[#a7783d] mb-3" />
+                <h2 className="font-serif text-center text-xl font-bold text-[#dbc18f]">Forge Your Legend</h2>
+                <p className="text-center text-[10px] text-[#776b5c] mt-2 leading-relaxed">Name your champion. Enter the fallen realm. Hunt, loot and grow stronger.</p>
+
+                <label className="block mt-6 mb-2 text-[9px] uppercase tracking-[.25em] text-[#9c7545]">Character name</label>
+                <input value={name} onChange={e => setName(e.target.value)} maxLength={18} required placeholder="Enter name..."
+                  className="w-full bg-black border border-[#5b3e21] px-4 py-3 text-sm text-[#e4c990] outline-none focus:border-[#c18a43] placeholder-[#4f463a]" />
+              </div>
+
+              <button type="submit" className="mt-6 w-full border border-[#d09a4d] bg-gradient-to-b from-[#9b632a] to-[#5b3518] hover:from-[#b77b37] hover:to-[#70431e] py-4 font-serif font-black uppercase tracking-[.2em] text-[#fff0c7] shadow-[inset_0_0_15px_rgba(255,205,111,.15),0_5px_20px_rgba(0,0,0,.6)] flex justify-center items-center gap-2">
+                <Play className="w-4 h-4 fill-current" /> Enter Darkfall
+              </button>
+            </section>
+          </form>
+
+          <div className="h-[2px] bg-gradient-to-r from-transparent via-[#70491f] to-transparent" />
+        </div>
       </div>
     </div>
   );
