@@ -86,30 +86,25 @@ class GameScene extends Phaser.Scene {
 
   makeHeroTextures() {
     const make=(key:string,step:number,idle=false)=>{
-      const g=this.make.graphics({x:0,y:0,add:false});
+      const g=this.make.graphics({x:0,y:0});
+      g.setVisible(false);
       g.clear();
       const bob=idle?Math.sin(step*Math.PI)*1:(step%2?2:0);
       g.fillStyle(0x000000,0.35).fillEllipse(48,112,62,16);
-      // cape
       g.fillStyle(0x6d1731,1).fillTriangle(24,48+bob,8-(step%2?5:0),90,35,82);
       g.fillStyle(0x991f3e,1).fillTriangle(30,50+bob,14,84,43,77);
-      // legs
       g.fillStyle(0x18253b,1).fillRect(37+(step%2?3:-2),78+bob,10,26);
       g.fillRect(52+(step%2?-3:2),78+bob,10,26);
       g.fillStyle(0x3d2b22,1).fillRect(34+(step%2?3:-2),100+bob,16,8);
       g.fillRect(49+(step%2?-3:2),100+bob,16,8);
-      // torso armor
       g.fillStyle(0x1d3558,1).fillRoundedRect(31,43+bob,36,42,7);
       g.fillStyle(0x355f8f,1).fillRoundedRect(35,47+bob,28,20,5);
       g.fillStyle(0xb9873e,1).fillRect(33,69+bob,32,5);
-      // shoulders
       g.fillStyle(0x7695b8,1).fillCircle(30,50+bob,9).fillCircle(68,50+bob,9);
       g.fillStyle(0x293e5f,1).fillCircle(30,50+bob,6).fillCircle(68,50+bob,6);
-      // head
       g.fillStyle(0xd49a73,1).fillCircle(50,31+bob,12);
       g.fillStyle(0x3a2016,1).fillTriangle(38,30+bob,45,12+bob,60,24+bob);
       g.fillTriangle(43,18+bob,62,17+bob,59,31+bob);
-      // arm + sword
       g.lineStyle(7,0x203454,1).lineBetween(61,57+bob,76,67+bob);
       g.lineStyle(4,0xd7e8f5,1).lineBetween(75,67+bob,105,78+bob);
       g.lineStyle(2,0x7fd7ff,1).lineBetween(76,66+bob,107,77+bob);
