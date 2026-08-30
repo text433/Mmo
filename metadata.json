@@ -1,6 +1,0 @@
-{
-  "name": "RealmIO MMORPG",
-  "description": "An HTML5 top-down .io style MMORPG featuring open-world exploration, dynamic cycling weather system with gameplay stat effects, boss battles, class abilities, inventory & loot, live leaderboard, and mini-map.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
