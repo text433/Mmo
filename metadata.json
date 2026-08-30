@@ -1,6 +1,0 @@
-{
-  "name": "Darkfall RPG.io",
-  "description": "Dark Fantasy HTML5 top-down RPG.io with open-world exploration, classes, abilities, bosses, equipment, loot rarity, quests, weather, leaderboard, mini-map and mobile touch controls.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
